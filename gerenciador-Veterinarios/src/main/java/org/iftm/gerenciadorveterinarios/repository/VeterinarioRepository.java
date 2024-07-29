@@ -1,8 +1,8 @@
-package org.iftm.gerenciadorveterinarios.model.repository;
+package org.iftm.gerenciadorveterinarios.repository;
 
 import java.util.List;
 
-import org.iftm.gerenciadorveterinarios.model.Veterinario;
+import org.iftm.gerenciadorveterinarios.entities.Veterinario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
