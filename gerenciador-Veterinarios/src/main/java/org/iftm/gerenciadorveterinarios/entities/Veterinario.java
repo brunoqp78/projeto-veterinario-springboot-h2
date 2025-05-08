@@ -6,12 +6,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
-@Data @NoArgsConstructor @AllArgsConstructor
 @Table(name = "tb_veterinario")
 public class Veterinario {
     
@@ -23,5 +19,55 @@ public class Veterinario {
     private String email;
     private String especialidade;
     private BigDecimal salario;
+    
+    public Veterinario() {
+    }
+
+    public Veterinario(Integer id, String nome, String email, String especialidade, BigDecimal salario) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.especialidade = especialidade;
+        this.salario = salario;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEspecialidade() {
+        return especialidade;
+    }
+
+    public void setEspecialidade(String especialidade) {
+        this.especialidade = especialidade;
+    }
+
+    public BigDecimal getSalario() {
+        return salario;
+    }
+
+    public void setSalario(BigDecimal salario) {
+        this.salario = salario;
+    }
+
+    
+
     //private Instant dataContratacao;
 }
