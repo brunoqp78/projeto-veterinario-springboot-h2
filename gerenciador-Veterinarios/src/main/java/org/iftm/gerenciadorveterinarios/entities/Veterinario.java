@@ -31,6 +31,10 @@ public class Veterinario {
         this.salario = salario;
     }
 
+    public void setId(Integer id){
+        this.id = id;
+    }
+    
     public Integer getId() {
         return id;
     }
