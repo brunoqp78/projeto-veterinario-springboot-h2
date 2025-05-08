@@ -3,7 +3,8 @@ package org.iftm.gerenciadorveterinarios.controller;
 import java.util.Optional;
 
 import org.iftm.gerenciadorveterinarios.entities.Veterinario;
-import org.iftm.gerenciadorveterinarios.repository.VeterinarioRepository;
+import org.iftm.gerenciadorveterinarios.repositories.VeterinarioRepository;
+import org.iftm.gerenciadorveterinarios.servicies.VeterinarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,7 @@ public class VeterinarioController {
 	
 	// O método abaixo faz injeção de dependência da classe Repository
     @Autowired
-    private VeterinarioRepository vetRepository;
+    private VeterinarioService servico;
 
     // Faz o mapeamento para a requisição find. Acessa o formulario de consulta de veterinários    
     @GetMapping("/find")
@@ -35,14 +36,14 @@ public class VeterinarioController {
     // Faz o mapeamento da requisição add. Adiciona novo veterinario
     @PostMapping("/add")
     public String novo(Veterinario veterinario) {
-        vetRepository.save(veterinario);
+        servico.salvar(veterinario);
         return "redirect:/home";
     }
 
     // faz o mapeamento da requisição form com o parametro id. Acessa o formulario de edição
     @GetMapping("form/{id}")
     public String updateForm(Model model, @PathVariable int id) {
-    	Optional<Veterinario> veterinario = vetRepository.findById(id);
+    	Optional<Veterinario> veterinario = servico.buscaVeterinariosPeloId(id);
     	if (veterinario.isPresent()) {
     		model.addAttribute("veterinario", veterinario.get());
     		return "atualizaVeterinarioForm";
@@ -54,15 +55,15 @@ public class VeterinarioController {
     // faz o mapeamento da requisição update. Atualiza veterinario
     @PostMapping("update/{id}")
     public String alterarProduto(Veterinario veterinario, @PathVariable int id) {
-        vetRepository.save(veterinario);
+        servico.salvar(veterinario);
         return "redirect:/home";
     }
 
     @GetMapping("delete/{id}")
     public String delete(@PathVariable int id) {  
-    	Optional<Veterinario> veterinario = vetRepository.findById(id);
+    	Optional<Veterinario> veterinario = servico.buscaVeterinariosPeloId(id);
     	if (veterinario.isPresent()) {
-            vetRepository.delete(veterinario.get());
+            servico.apagar(veterinario.get());
     	}        
         return "redirect:/home";
     }

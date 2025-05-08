@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.iftm.gerenciadorveterinarios.entities.Veterinario;
-import org.iftm.gerenciadorveterinarios.repository.VeterinarioRepository;
+import org.iftm.gerenciadorveterinarios.repositories.VeterinarioRepository;
+import org.iftm.gerenciadorveterinarios.servicies.VeterinarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +17,7 @@ public class HomeController {
 
 	// O método abaixo faz injeção de dependência da classe Repository
 	@Autowired
-	private VeterinarioRepository vetRepository;
+	private VeterinarioService servico;
 
 	// Método responsável em mapear a requisição /home
 	// Ele pode receber o parâmetro nome, caso tenha sido chamado pela função de pesquisa.
@@ -24,9 +25,9 @@ public class HomeController {
 	public String home(@RequestParam(value = "nome", required = false) Optional<String> nome, Model model) {
 		List<Veterinario> veterinarios;
 		if (nome.isPresent()) {
-			veterinarios = vetRepository.findByNomeContains(nome.get());
+			veterinarios = servico.buscaVeterinariosComParteNome(nome.get());
 		} else {
-			veterinarios = vetRepository.findAll();
+			veterinarios = servico.buscaTodosVeterinarios();
 		}
 		model.addAttribute("veterinarios", veterinarios);
 		return "home";

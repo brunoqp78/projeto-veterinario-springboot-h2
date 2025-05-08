@@ -1,4 +1,4 @@
-package org.iftm.gerenciadorveterinarios.repository;
+package org.iftm.gerenciadorveterinarios.repositories;
 
 import java.util.List;
 
